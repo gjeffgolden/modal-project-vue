@@ -1,8 +1,17 @@
 <template>
   <h1>{{ title }}</h1>
+  <p>Welcome...</p>
   <!-- <input type="text" ref="name">
   <button @click="handleClick">Click Me</button> -->
-  <Modal :header="header" :text="text" theme="sale" />
+  <div v-if="showModal">
+    <Modal :header="header" :text="text" theme="sale" @close="toggleModal"/>
+  </div>
+  <div v-if="showSecondModal">
+    <Modal header="Sign Up For Our Newsletter" text="Get the latest news!" @close="toggleSecondModal" />
+  </div>
+  <button @click="toggleModal">Open Modal</button>
+  <br>
+  <button @click="toggleSecondModal">Open Second Modal</button>
 </template>
 
 <script>
@@ -17,7 +26,9 @@ export default {
     return {
       title: "My First Vue App",
       header: "Sign Up for the Giveaway",
-      text: "Half-price swag"
+      text: "Half-price swag",
+      showModal: false,
+      showSecondModal: false
     }
   },
   methods: {
@@ -25,6 +36,12 @@ export default {
       console.log(this.$refs.name)
       this.$refs.name.classList.add('active')
       this.$refs.name.focus()
+    },
+    toggleModal() {
+      this.showModal = !this.showModal
+    },
+    toggleSecondModal() {
+      this.showSecondModal = !this.showSecondModal
     }
   }
 }
